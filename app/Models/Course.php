@@ -29,7 +29,7 @@ class Course extends Model
     }
 
 
-    public function Courses(): BelongsToMany
+    public function Students(): BelongsToMany
     {
         // belongtomany (many to many), 3 table berelasi course,  user, course_students
         // course ini bisa meilhat siapa aja user yg masuk kelas tertentu course student hanya penadah saja
