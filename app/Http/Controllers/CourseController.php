@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -70,13 +71,15 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Course $course)
+    public function show(Course $course) // dgn $course aja dia mngembalikan brdskrn id
     {
-        //
-
+        //tdk perlu find (id)
+        // $courses = Course::find($id);
         return view('admin.courses.manage', [
+            // 'courses' => $courses->Students()->orderBy('id', 'DESC')->get(),
             'course' => $course,
-            'students' => $course->Students()->orderBy('id', 'DESC')->get(),
+            'students' => $course->Students()->orderBy('id', 'DESC')->get(), // many to many
+            'questions' => $course->Questions()->orderBy('id', 'DESC')->get(),
         ]);
     }
 
@@ -110,6 +113,12 @@ class CourseController extends Controller
         try {
             if ($request->hasFile('cover')) {
                 $coverPath = $request->file('cover')->store('product_covers', 'public');
+
+                // Hapus gambar lama
+                if ($course->cover) {
+                    Storage::disk('public')->delete($course->cover);
+                }
+
                 $validated['cover'] = $coverPath;
             }
             $validated['slug'] = Str::slug($request->name);

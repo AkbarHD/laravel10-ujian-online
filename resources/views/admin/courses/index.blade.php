@@ -227,12 +227,13 @@
                                         class="flex items-center justify-between font-bold text-sm w-full">
                                         Students
                                     </a>
+                                    {{-- pake $course->id atau $course juga sama --}}
                                     <a href="{{ route('dashboard.courses.edit', $course->id) }}"
                                         class="flex items-center justify-between font-bold text-sm w-full">
                                         Edit Course
                                     </a>
-                                    <form method="POST" action="{{ route('dashboard.courses.destroy', $course) }}"
-                                        {{-- kalo cara sperti biasa harunya $couse->id  --}}>
+                                    {{-- pake $course->id atau $course juga sama --}}
+                                    <form method="POST" action="{{ route('dashboard.courses.destroy', $course) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseQuestionController;
 use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\LearningController;
 use App\Http\Controllers\ProfileController;
@@ -43,10 +44,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('courses', CourseController::class)->middleware('role:teacher');
 
         //  form membuat pertanyaan where id
-        Route::get('/course/question/create/{course}', [CourseQuestion::class, 'create'])->middleware('role:teacher')->name('course.create.question');
+        Route::get('/course/question/create/{course}', [CourseQuestionController::class, 'create'])->middleware('role:teacher')->name('course.create.question');
 
         // post form proses simpan where id
-        Route::post('/course/question/save/{course}', [CourseQuestion::class, 'store'])->middleware('role:teacher')->name('course.create.question.store');
+        Route::post('/course/question/save/{course}', [CourseQuestionController::class, 'store'])->middleware('role:teacher')->name('course.create.question.store');
 
         //  
         Route::resource('course_questions', CourseController::class)->middleware('role:teacher');
