@@ -246,6 +246,9 @@
                         </div>
                     </div>
                 @empty
+                    <p>
+                        Belum ada kelas yang dibuat.
+                    </p>
                 @endforelse
 
             </div>

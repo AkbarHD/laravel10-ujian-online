@@ -197,6 +197,16 @@
                     </div>
                 </div>
             </div>
+
+
+            @if ($errors->any())
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li class="py-5 px-5 text-white">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
             <form method="POST" action="{{ route('dashboard.course.create.question.store', $course) }}"
                 id="add-question" class="mx-[70px] mt-[30px] flex flex-col gap-5">
                 @csrf
@@ -226,70 +236,20 @@
                                 </div>
                                 <input type="text"
                                     class="font-semibold placeholder:text-[#7F8190] placeholder:font-normal w-full outline-none"
-                                    placeholder="Write better answer option" name="answer[]">
+                                    placeholder="Write better answer option" name="answers[]">
                             </div>
-                            <label class="font-semibold flex items-center gap-[10px]"><input type="radio"
-                                    name="correct_answer"
+                            <label class="font-semibold flex items-center gap-[10px]">
+                                <input type="radio" name="correct_answer" value="{{ $i }}"
                                     class="w-[24px] h-[24px] appearance-none checked:border-[3px] checked:border-solid checked:border-white rounded-full checked:bg-[#2B82FE] ring ring-[#EEEEEE]" />
                                 Correct
                             </label>
                         </div>
                     @endfor
-                    {{-- <div class="flex items-center gap-4">
-                        <div
-                            class="flex items-center w-[500px] h-[52px] p-[14px_16px] rounded-full border border-[#EEEEEE] focus-within:border-2 focus-within:border-[#0A090B]">
-                            <div class="mr-[14px] w-6 h-6 flex items-center justify-center overflow-hidden">
-                                <img src="{{ asset('images/icons/edit.svg') }}" class="h-full w-full object-contain"
-                                    alt="icon">
-                            </div>
-                            <input type="text"
-                                class="font-semibold placeholder:text-[#7F8190] placeholder:font-normal w-full outline-none"
-                                placeholder="Write better answer option" name="answer-2">
-                        </div>
-                        <label class="font-semibold flex items-center gap-[10px]"><input type="radio"
-                                name="correct"
-                                class="w-[24px] h-[24px] appearance-none checked:border-[3px] checked:border-solid checked:border-white rounded-full checked:bg-[#2B82FE] ring ring-[#EEEEEE]" />
-                            Correct
-                        </label>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div
-                            class="flex items-center w-[500px] h-[52px] p-[14px_16px] rounded-full border border-[#EEEEEE] focus-within:border-2 focus-within:border-[#0A090B]">
-                            <div class="mr-[14px] w-6 h-6 flex items-center justify-center overflow-hidden">
-                                <img src="{{ asset('images/icons/edit.svg') }}" class="h-full w-full object-contain"
-                                    alt="icon">
-                            </div>
-                            <input type="text"
-                                class="font-semibold placeholder:text-[#7F8190] placeholder:font-normal w-full outline-none"
-                                placeholder="Write better answer option" name="answer-3">
-                        </div>
-                        <label class="font-semibold flex items-center gap-[10px]"><input type="radio"
-                                name="correct"
-                                class="w-[24px] h-[24px] appearance-none checked:border-[3px] checked:border-solid checked:border-white rounded-full checked:bg-[#2B82FE] ring ring-[#EEEEEE]" />
-                            Correct
-                        </label>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div
-                            class="flex items-center w-[500px] h-[52px] p-[14px_16px] rounded-full border border-[#EEEEEE] focus-within:border-2 focus-within:border-[#0A090B]">
-                            <div class="mr-[14px] w-6 h-6 flex items-center justify-center overflow-hidden">
-                                <img src="{{ asset('images/icons/edit.svg') }}" class="h-full w-full object-contain"
-                                    alt="icon">
-                            </div>
-                            <input type="text"
-                                class="font-semibold placeholder:text-[#7F8190] placeholder:font-normal w-full outline-none"
-                                placeholder="Write better answer option" name="answer-3">
-                        </div>
-                        <label class="font-semibold flex items-center gap-[10px]"><input type="radio"
-                                name="correct"
-                                class="w-[24px] h-[24px] appearance-none checked:border-[3px] checked:border-solid checked:border-white rounded-full checked:bg-[#2B82FE] ring ring-[#EEEEEE]" />
-                            Correct
-                        </label>
-                    </div> --}}
                 </div>
-                <a href="course-details.html"
+                <button type="submit"
                     class="w-[500px] h-[52px] p-[14px_20px] bg-[#6436F1] rounded-full font-bold text-white transition-all duration-300 hover:shadow-[0_4px_15px_0_#6436F14D] text-center">Save
-                    Question</a>
+                    Question
+                </button>
             </form>
         </div>
     </section>

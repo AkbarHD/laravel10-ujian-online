@@ -270,7 +270,7 @@
                             class="question-card w-full flex items-center justify-between p-4 border border-[#EEEEEE] rounded-[20px]">
                             <div class="flex flex-col gap-[6px]">
                                 <p class="text-[#7F8190]">Question</p>
-                                <p class="font-bold text-xl">{{ $question }}</p>
+                                <p class="font-bold text-xl">{{ $question->question }}</p>
                             </div>
                             <div class="flex items-center gap-[14px]">
                                 <a href="#"

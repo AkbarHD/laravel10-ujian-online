@@ -74,12 +74,12 @@ class CourseController extends Controller
     public function show(Course $course) // dgn $course aja dia mngembalikan brdskrn id
     {
         //tdk perlu find (id)
-        // $courses = Course::find($id);
+        // $course = Course::find($id);
         return view('admin.courses.manage', [
             // 'courses' => $courses->Students()->orderBy('id', 'DESC')->get(),
             'course' => $course,
             'students' => $course->Students()->orderBy('id', 'DESC')->get(), // many to many
-            'questions' => $course->Questions()->orderBy('id', 'DESC')->get(),
+            'questions' => $course->Questions()->orderBy('id', 'DESC')->get(), // jd dia menampilkan semua pertanyaan beraasarkan id dri course
         ]);
     }
 
