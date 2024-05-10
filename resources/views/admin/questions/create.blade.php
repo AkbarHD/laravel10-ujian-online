@@ -212,6 +212,7 @@
                 @csrf
                 <h2 class="font-bold text-2xl">Add New Question</h2>
                 <div class="flex flex-col gap-[10px]">
+
                     <p class="font-semibold">Question</p>
                     <div
                         class="flex items-center w-[500px] h-[52px] p-[14px_16px] rounded-full border border-[#EEEEEE] focus-within:border-2 focus-within:border-[#0A090B]">
@@ -223,6 +224,7 @@
                             class="font-semibold placeholder:text-[#7F8190] placeholder:font-normal w-full outline-none"
                             placeholder="Write the question" name="question">
                     </div>
+
                 </div>
                 <div class="flex flex-col gap-[10px]">
                     <p class="font-semibold">Answers</p>

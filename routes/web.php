@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/course/question/save/{course}', [CourseQuestionController::class, 'store'])->middleware('role:teacher')->name('course.create.question.store');
 
         //  
-        Route::resource('course_questions', CourseController::class)->middleware('role:teacher');
+        Route::resource('course_questions', CourseQuestionController::class)->middleware('role:teacher');
 
         // utk melihat studentnya siapa aja dari kelas tertentu
         Route::get('/course/students/show/{course}', [CourseStudentController::class, 'index'])->middleware('role:teacher')->name('course.course_students.index');

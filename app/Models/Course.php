@@ -22,7 +22,7 @@ class Course extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    // hasmany utk menampilkan seluruh pertanyaan
+    // hasmany utk menarik 5 pertanyaan dari coursequestion
     public function Questions(): HasMany
     {
         return $this->hasMany(CourseQuestion::class, 'course_id', 'id');

@@ -52,14 +52,19 @@ class CourseQuestionController extends Controller
         try {
 
             // nambah ke table question
-            $question = $course->Questions()->create([
-                'question' => $request->question, // ini tdk perlu di course_id, krn sdh otomatis relasi
+            $question = $course->Questions()->create([ // ini tdk perlu di course_id, krn sdh otomatis relasi
+                'question' => $request->question,
                 // 'course_id' => $course,
             ]);
 
+            // $question = CourseQuestion::create([
+            //     'question' => $request->question,  // pake ini juga bisa tanpa relasi dan harus isi course id manual
+            //     'course_id' => $course->id,
+            // ]);
+
             // nambah ke table course_answers
             foreach ($request->answers as $index => $answerText) {
-                $isCorrect = ($request->correct_answer == $index);
+                $isCorrect = ($request->correct_answer == $index); // jwban yg benar
                 $question->Answers()->create([
                     'answer' => $answerText,
                     'is_correct' => $isCorrect,
@@ -84,7 +89,6 @@ class CourseQuestionController extends Controller
      */
     public function show(CourseQuestion $courseQuestion)
     {
-        //
     }
 
     /**
@@ -92,7 +96,14 @@ class CourseQuestionController extends Controller
      */
     public function edit(CourseQuestion $courseQuestion)
     {
-        //
+        $course = $courseQuestion->Course; // utk mengambil course berdasarkan id utk course_id di table question
+        $students = $course->Students()->orderBy('id', 'DESC')->get();
+
+        return view('admin.questions.edit', [
+            'courseQuestion' => $courseQuestion, // utk mndptkn question brdsrkan id yang ingin di tampikan
+            'course' => $course, // utk mengisi course_id
+            'students' => $students, // tuk melihat kelas ini userya siapa aja
+        ]);
     }
 
     /**
@@ -100,7 +111,45 @@ class CourseQuestionController extends Controller
      */
     public function update(Request $request, CourseQuestion $courseQuestion)
     {
-        //
+        $validated = $request->validate([
+            // name dari field
+            'question' => 'required|string|max:255',
+            'answers' => 'required|array', // array
+            'answers.*' => 'required|string', // pecahan sting dari array
+            'correct_answer' => 'required|integer'
+        ]);
+
+        DB::beginTransaction(); // ini bagus ketika ada kecacatan data bisa di rollback
+
+        try {
+
+            $courseQuestion->update([
+                'question' => $request->question,
+                //course_id gamungkin karena ini hanya edit pertanyaan saja tidak edit kelas
+            ]);
+
+            $courseQuestion->Answers()->delete(); // hapus jawaban dari pertanyaan tersebut
+
+            // edit ke table course_answers
+            foreach ($request->answers as $index => $answerText) {
+                $isCorrect = ($request->correct_answer == $index); // jwban yg benar
+                $courseQuestion->Answers()->update([
+                    'answer' => $answerText,
+                    'is_correct' => $isCorrect,
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('dashboard.courses.show', $courseQuestion->course_id);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $error = ValidationException::withMessages([ // kembalikan ke halam sebelumnya dan mengirimkan pesan error
+                'system_error' => ['System_error!!' . $e->getMessage()],
+            ]);
+
+            throw $error;
+        }
     }
 
     /**

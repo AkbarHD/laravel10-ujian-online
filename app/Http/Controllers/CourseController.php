@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\CourseQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -80,6 +81,7 @@ class CourseController extends Controller
             'course' => $course,
             'students' => $course->Students()->orderBy('id', 'DESC')->get(), // many to many
             'questions' => $course->Questions()->orderBy('id', 'DESC')->get(), // jd dia menampilkan semua pertanyaan beraasarkan id dri course
+            // 'questions' => CourseQuestion::where('course_id', $course->id)->orderBy('id', 'DESC')->get(), // pkae ini tanpa realasi pun bisa
         ]);
     }
 
