@@ -202,7 +202,7 @@
             @if ($errors->any())
                 <ul>
                     @foreach ($errors->all() as $error)
-                        <li class="py-5 px-5 text-white">{{ $error }}</li>
+                        <li class="py-5 px-5 text-red-700">{{ $error }}</li>
                     @endforeach
                 </ul>
             @endif

@@ -33,6 +33,6 @@ class Course extends Model
     {
         // belongtomany (many to many), 3 table berelasi course,  user, course_students
         // course ini bisa meilhat siapa aja user yg masuk kelas tertentu course student hanya penadah saja
-        return $this->belongsToMany(User::class, 'course_students', 'course_id', 'user_id');
+        return $this->belongsToMany(User::class, 'course_students',  'user_id', 'course_id');
     }
 }

@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
         // utk melihat studentnya siapa aja dari kelas tertentu
         Route::get('/course/students/show/{course}', [CourseStudentController::class, 'index'])->middleware('role:teacher')->name('course.course_students.index');
 
+
         // form utk menambahkan student baru masuk ke dalam kelas
         Route::get('/course/students/create/{course}', [CourseStudentController::class, 'create'])->middleware('role:teacher')->name('course.course_students.create');
 
