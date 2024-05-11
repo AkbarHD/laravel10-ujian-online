@@ -208,7 +208,8 @@
                     </a>
                     <div
                         class="dropdown-menu absolute hidden right-0 top-[66px] w-[270px] flex flex-col gap-4 p-5 border border-[#EEEEEE] bg-white rounded-[18px] transition-all duration-300 shadow-[0_10px_16px_0_#0A090B0D]">
-                        <a href="" class="flex gap-[10px] items-center">
+                        <a href="{{ route('dashboard.course.course_students.create', $course) }}"
+                            {{-- ingin menambahkan student berdasarkan kelas  --}} class="flex gap-[10px] items-center">
                             <div class="w-5 h-5">
                                 <img src="{{ asset('images/icons/profile-2user-outline.svg') }}" alt="icon">
                             </div>
@@ -279,8 +280,11 @@
                                 <a href="{{ route('dashboard.course_questions.edit', $question) }}"
                                     class="bg-[#0A090B] p-[14px_30px] rounded-full text-white font-semibold">Edit</a>
 
-                                <form action="">
-                                    <button
+                                <form method="POST"
+                                    action="{{ route('dashboard.course_questions.destroy', $question->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
                                         class="w-[52px] h-[52px] flex shrink-0 items-center justify-center rounded-full bg-[#FD445E]">
                                         <img src="{{ asset('images/icons/trash.svg') }}" alt="icon">
                                     </button>

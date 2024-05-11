@@ -175,7 +175,7 @@
                             alt="icon">
                         <p
                             class="p-[8px_16px] rounded-full bg-[#FFF2E6] font-bold text-sm text-[#F6770B] absolute bottom-0 transform -translate-x-1/2 left-1/2 text-nowrap">
-                            {{ $course->Category->name }}</p>
+                            {{-- {{ $course->Category->name }}</p> --}}
                     </div>
                     <div class="flex flex-col gap-5">
                         <h1 class="font-extrabold text-[30px] leading-[45px]">{{ $course->name }}</h1>

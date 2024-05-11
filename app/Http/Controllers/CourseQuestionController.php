@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseAnswer;
 use App\Models\CourseQuestion;
+use App\Models\CourseStudent;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -96,12 +99,13 @@ class CourseQuestionController extends Controller
      */
     public function edit(CourseQuestion $courseQuestion)
     {
-        $course = $courseQuestion->Course; // utk mengambil course berdasarkan id utk course_id di table question
+        $course = Course::where('id', $courseQuestion->course_id)->first();
+        // $course = $courseQuestion->Course; // utk mengambil course berdasarkan id utk course_id di table question
         $students = $course->Students()->orderBy('id', 'DESC')->get();
 
         return view('admin.questions.edit', [
             'courseQuestion' => $courseQuestion, // utk mndptkn question brdsrkan id yang ingin di tampikan
-            'course' => $course, // utk mengisi course_id
+            'course' => $course, // utk mengisi cover judul kelas
             'students' => $students, // tuk melihat kelas ini userya siapa aja
         ]);
     }
@@ -128,12 +132,12 @@ class CourseQuestionController extends Controller
                 //course_id gamungkin karena ini hanya edit pertanyaan saja tidak edit kelas
             ]);
 
-            $courseQuestion->Answers()->delete(); // hapus jawaban dari pertanyaan tersebut
+            $courseQuestion->Answers()->delete(); // hapus jawaban dari pertanyaan tersebut semuanya
 
             // edit ke table course_answers
             foreach ($request->answers as $index => $answerText) {
                 $isCorrect = ($request->correct_answer == $index); // jwban yg benar
-                $courseQuestion->Answers()->update([
+                $courseQuestion->Answers()->create([ // kalo update semuanya td ke ganti 
                     'answer' => $answerText,
                     'is_correct' => $isCorrect,
                 ]);
@@ -157,6 +161,18 @@ class CourseQuestionController extends Controller
      */
     public function destroy(CourseQuestion $courseQuestion)
     {
-        //
+        try {
+            $courseQuestion->delete(); // hapus berdasarkan id
+            $answer = CourseAnswer::where('course_question_id', $courseQuestion->id); // hapus jawban berdsarkan course_question_id
+            $answer->delete();
+            return redirect()->route('dashboard.courses.show', $courseQuestion->course_id);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $error = ValidationException::withMessages([ // kembalikan ke halam sebelumnya dan mengirimkan pesan error
+                'system_error' => ['System_error!!' . $e->getMessage()],
+            ]);
+
+            throw $error;
+        }
     }
 }
