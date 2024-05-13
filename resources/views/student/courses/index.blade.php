@@ -104,13 +104,16 @@
                         </a>
                     </li>
                     <li>
-                        <a href="signin.html"
-                            class="p-[10px_16px] flex items-center gap-[14px] rounded-full h-11 transition-all duration-300 hover:bg-[#2B82FE]">
-                            <div>
-                                <img src="{{ asset('images/icons/security-safe.svg') }}" alt="icon">
-                            </div>
-                            <p class="font-semibold transition-all duration-300 hover:text-white">Logout</p>
-                        </a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="w-full p-[10px_16px] flex items-center gap-[14px] rounded-full h-11 transition-all duration-300 hover:bg-[#2B82FE]">
+                                <div>
+                                    <img src="{{ asset('images/icons/security-safe.svg') }}" alt="icon">
+                                </div>
+                                <p class="font-semibold transition-all duration-300 hover:text-white">Logout</p>
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -141,7 +144,7 @@
                     <div class="flex gap-3 items-center">
                         <div class="flex flex-col text-right">
                             <p class="text-sm text-[#7F8190]">Howdy</p>
-                            <p class="font-semibold">Bondan Poro</p>
+                            <p class="font-semibold">{{ Auth::user()->name }}</p>
                         </div>
                         <div class="w-[46px] h-[46px]">
                             <img src="{{ asset('images/photos/default-photo.svg') }}" alt="photo">
@@ -172,83 +175,45 @@
                         <p class="text-[#7F8190]">Action</p>
                     </div>
                 </div>
-                <div class="list-items flex flex-nowrap justify-between pr-10">
-                    <div class="flex shrink-0 w-[300px]">
-                        <div class="flex items-center gap-4">
-                            <div class="w-16 h-16 flex shrink-0 overflow-hidden rounded-full">
-                                <img src="{{ asset('images/thumbnail/Digital-Marketing-101.png') }}"
-                                    class="object-cover" alt="thumbnail">
-                            </div>
-                            <div class="flex flex-col gap-[2px]">
-                                <p class="font-bold text-lg">Digital Marketing 101</p>
-                                <p class="text-[#7F8190]">Beginners</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex shrink-0 w-[150px] items-center justify-center">
-                        <p class="font-semibold">11 March 2024</p>
-                    </div>
-                    <div class="flex shrink-0 w-[170px] items-center justify-center">
-                        <p class="p-[8px_16px] rounded-full bg-[#D5EFFE] font-bold text-sm text-[#066DFE]">Marketing
-                        </p>
-                    </div>
-                    <div class="flex shrink-0 w-[120px] items-center">
-                        <a href="learning.html"
-                            class="w-full h-[41px] p-[10px_20px] bg-[#6436F1] rounded-full font-bold text-sm text-white transition-all duration-300 hover:shadow-[0_4px_15px_0_#6436F14D] text-center">Start
-                            Test</a>
-                    </div>
-                </div>
-                <div class="list-items flex flex-nowrap justify-between pr-10">
-                    <div class="flex shrink-0 w-[300px]">
-                        <div class="flex items-center gap-4">
-                            <div class="w-16 h-16 flex shrink-0 overflow-hidden rounded-full">
-                                <img src="{{ asset('images/thumbnail/UIUX-2.png') }}" class="object-cover"
-                                    alt="thumbnail">
-                            </div>
-                            <div class="flex flex-col gap-[2px]">
-                                <p class="font-bold text-lg">Usability-Testing</p>
-                                <p class="text-[#7F8190]">Beginners</p>
+
+                @forelse ($my_courses as $my_course)
+                    <div class="list-items flex flex-nowrap justify-between pr-10">
+                        <div class="flex shrink-0 w-[300px]">
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-16 flex shrink-0 overflow-hidden rounded-full">
+                                    <img src="{{ Storage::url($my_course->cover) }}" class="object-cover"
+                                        alt="thumbnail">
+                                </div>
+                                <div class="flex flex-col gap-[2px]">
+                                    <p class="font-bold text-lg">{{ $my_course->name }}</p>
+                                    <p class="text-[#7F8190]">Beginners</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="flex shrink-0 w-[150px] items-center justify-center">
-                        <p class="font-semibold">30 June 2024</p>
-                    </div>
-                    <div class="flex shrink-0 w-[170px] items-center justify-center">
-                        <p class="p-[8px_16px] rounded-full bg-[#FFF2E6] font-bold text-sm text-[#F6770B]">Product
-                            Design</p>
-                    </div>
-                    <div class="flex shrink-0 w-[120px] items-center">
-                        <a href="rapport-details.html"
-                            class="w-full h-[41px] p-[10px_20px] bg-[#0A090B] rounded-full font-bold text-sm text-white transition-all duration-300 text-center">Rapport</a>
-                    </div>
-                </div>
-                <div class="list-items flex flex-nowrap justify-between pr-10">
-                    <div class="flex shrink-0 w-[300px]">
-                        <div class="flex items-center gap-4">
-                            <div class="w-16 h-16 flex shrink-0 overflow-hidden rounded-full">
-                                <img src="{{ asset('images/thumbnail/Web-Development.png') }}" class="object-cover"
-                                    alt="thumbnail">
-                            </div>
-                            <div class="flex flex-col gap-[2px]">
-                                <p class="font-bold text-lg">Web Development</p>
-                                <p class="text-[#7F8190]">Beginners</p>
-                            </div>
+                        <div class="flex shrink-0 w-[150px] items-center justify-center">
+                            <p class="font-semibold">
+                                {{ \Carbon\Carbon::parse($my_course->created_at)->format('F j, Y') }}</p>
+                            </p>
+                        </div>
+                        <div class="flex shrink-0 w-[170px] items-center justify-center">
+                            <p class="p-[8px_16px] rounded-full bg-[#D5EFFE] font-bold text-sm text-[#066DFE]">
+                                {{ $my_course->Category->name }}
+                            </p>
+                        </div>
+                        <div class="flex shrink-0 w-[120px] items-center">
+                            <a href="learning.html"
+                                class="w-full h-[41px] p-[10px_20px] bg-[#6436F1] rounded-full font-bold text-sm text-white transition-all duration-300 hover:shadow-[0_4px_15px_0_#6436F14D] text-center">Start
+                                Test</a>
                         </div>
                     </div>
-                    <div class="flex shrink-0 w-[150px] items-center justify-center">
-                        <p class="font-semibold">30 June 2024</p>
-                    </div>
-                    <div class="flex shrink-0 w-[170px] items-center justify-center">
-                        <p class="p-[8px_16px] rounded-full bg-[#EAE8FE] font-bold text-sm text-[#6436F1]">Programming
-                        </p>
-                    </div>
-                    <div class="flex shrink-0 w-[120px] items-center">
-                        <a href="learning.html"
-                            class="w-full h-[41px] p-[10px_20px] bg-[#6436F1] rounded-full font-bold text-sm text-white transition-all duration-300 hover:shadow-[0_4px_15px_0_#6436F14D] text-center">Start
-                            Test</a>
-                    </div>
-                </div>
+                @empty
+                    <p>
+                        Kamu belum memiliki Kelas
+                    </p>
+                @endforelse
+
+
+
             </div>
         </div>
     </section>
