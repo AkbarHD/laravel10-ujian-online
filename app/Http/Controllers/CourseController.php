@@ -82,6 +82,7 @@ class CourseController extends Controller
             'students' => $course->Students()->orderBy('id', 'DESC')->get(), // many to many
             'questions' => $course->Questions()->orderBy('id', 'DESC')->get(), // jd dia menampilkan semua pertanyaan beraasarkan id dri course
             // 'questions' => CourseQuestion::where('course_id', $course->id)->orderBy('id', 'DESC')->get(), // pkae ini tanpa realasi pun bisa
+            'users' => $course->Students()->orderBy('id', 'DESC')->get(),
         ]);
     }
 

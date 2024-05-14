@@ -176,32 +176,32 @@
                     </div>
                 </div>
 
-                @forelse ($my_courses as $my_course)
+                @forelse ($my_courses as $course)
                     <div class="list-items flex flex-nowrap justify-between pr-10">
                         <div class="flex shrink-0 w-[300px]">
                             <div class="flex items-center gap-4">
                                 <div class="w-16 h-16 flex shrink-0 overflow-hidden rounded-full">
-                                    <img src="{{ Storage::url($my_course->cover) }}" class="object-cover"
+                                    <img src="{{ Storage::url($course->cover) }}" class="object-cover"
                                         alt="thumbnail">
                                 </div>
                                 <div class="flex flex-col gap-[2px]">
-                                    <p class="font-bold text-lg">{{ $my_course->name }}</p>
+                                    <p class="font-bold text-lg">{{ $course->name }}</p>
                                     <p class="text-[#7F8190]">Beginners</p>
                                 </div>
                             </div>
                         </div>
                         <div class="flex shrink-0 w-[150px] items-center justify-center">
                             <p class="font-semibold">
-                                {{ \Carbon\Carbon::parse($my_course->created_at)->format('F j, Y') }}</p>
+                                {{ \Carbon\Carbon::parse($course->created_at)->format('F j, Y') }}</p>
                             </p>
                         </div>
                         <div class="flex shrink-0 w-[170px] items-center justify-center">
                             <p class="p-[8px_16px] rounded-full bg-[#D5EFFE] font-bold text-sm text-[#066DFE]">
-                                {{ $my_course->Category->name }}
+                                {{ $course->Category->name }}
                             </p>
                         </div>
                         <div class="flex shrink-0 w-[120px] items-center">
-                            <a href="learning.html"
+                            <a href="{{ route('dashboard.learning.course', ['course' => $course->id, 'question' => $course->nextQuestionId]) }}"
                                 class="w-full h-[41px] p-[10px_20px] bg-[#6436F1] rounded-full font-bold text-sm text-white transition-all duration-300 hover:shadow-[0_4px_15px_0_#6436F14D] text-center">Start
                                 Test</a>
                         </div>
@@ -211,6 +211,7 @@
                         Kamu belum memiliki Kelas
                     </p>
                 @endforelse
+
 
 
 
