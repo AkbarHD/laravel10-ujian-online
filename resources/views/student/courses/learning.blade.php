@@ -44,7 +44,7 @@
             </h1>
             <div class="flex flex-col gap-[30px] max-w-[750px] w-full">
                 @foreach ($question->Answers as $answer)
-                    <label for="a"
+                    <label for="{{ $answer->id }}"
                         class="group flex items-center justify-between rounded-full w-full border border-[#EEEEEE] p-[18px_20px] gap-[14px] transition-all duration-300 has-[:checked]:border-2 has-[:checked]:border-[#0A090B]">
                         <div class="flex items-center gap-[14px]">
                             <img src="{{ asset('images/icons/arrow-circle-right.svg') }}" alt="icon">
@@ -52,7 +52,7 @@
                         </div>
                         <div class="hidden group-has-[:checked]:block">
                             <img src="{{ asset('images/icons/tick-circle.svg') }}" alt="icon">
-                        </div>
+                            </div>
                         <input type="radio" name="answer_id" id="{{ $answer->id }}" value="{{ $answer->id }}"
                             class="hidden">
                     </label>
