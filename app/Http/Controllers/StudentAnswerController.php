@@ -38,7 +38,7 @@ class StudentAnswerController extends Controller
         $question_detail = CourseQuestion::where('id', $question)->first();
 
         $validated = $request->validate([
-            'answer_id' => 'required|exists:course_answer,id' 
+            'answer_id' => 'required|exists:course_answers,id' 
         ]);
 
         DB::beginTransaction();
@@ -53,7 +53,7 @@ class StudentAnswerController extends Controller
                 throw $error;
             }
 
-            $studentAnswer = StudentAnswer::where('user_id', Auth::user()->id)->where('course_question_id', $question)->first();
+            $studentAnswer = StudentAnswer::where('user_id', Auth::id())->where('course_question_id', $question)->first();
 
             if($studentAnswer){
                 $error = ValidationException::withMessages([
@@ -63,7 +63,7 @@ class StudentAnswerController extends Controller
                 throw $error;
             }
 
-            $answerValue = $selected_answer->is_correct ? 'correct' : 'wrong';
+            $answerValue = $selected_answer->is_correct ? 'correct' : 'wrong'; // jika 1 correct jika 0 wrong
 
             StudentAnswer::create([
                 'user_id' => Auth::id(),
@@ -80,6 +80,15 @@ class StudentAnswerController extends Controller
             ]);
 
             throw $error;
+        }
+
+        // jika blm selesai makan ke pertanyaan selanjutnya "DESC"
+        $nextQuestion = CourseQuestion::where('course_id', $course->id)->where('id', '>' , $question)->orderBy('id', 'DESC')->first(); 
+        if($nextQuestion){
+            return redirect()->route('dashboard.learning.course', ['course' => $course->id, 'question' => $nextQuestion->id]);
+        }else{
+            // jika sudah selesai
+            return redirect()->route('dashboard.learning.finished.course', $course->id);
         }
     }
 
