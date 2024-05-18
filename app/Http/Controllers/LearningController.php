@@ -58,4 +58,10 @@ class LearningController extends Controller
             'question' => $currentQuestion,
         ]);
     }
+
+    public function learning_rapport(Course $course){
+        return view('student.courses.learning_rapport', [
+            'course' => $course,
+        ]);
+    }
 }
