@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseQuestionController;
 use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\LearningController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RapportController;
 use App\Http\Controllers\StudentAnswerController;
 use App\Models\CourseQuestion;
 use Illuminate\Support\Facades\Route;
@@ -76,9 +77,18 @@ Route::middleware('auth')->group(function () {
 
         // hasil nilai murid after learning
         Route::get('/learning/finished/{course}', [LearningController::class, 'learning_finished'])->middleware('role:student')->name('learning.finished.course');
+         
+        // ----------------------------------
+        Route::get('/rapport/learning/{course}', [LearningController::class, 'learning_rapport'])
+        ->middleware('role:student')
+        ->name('learning.rapport.course');
+        // -----------------------------------
 
-        // hasil rapport murid after learning dia lulus atau tidak
-        Route::get('/learning/rapport/{course}', [LearningController::class, 'learning_rapport'])->middleware('role:student')->name('learning.rapport.course');
+        // ----------------fiks bug ----------------------
+        // Route::resource('rapport', RapportController::class)->middleware('role:student')->only(['show']);
+        // Route::get('rapport/learning/apa/{course}', [RapportController::class, 'asu'])->middleware('role:student')->name('rapport.show');
+
+
     });
 });
 
