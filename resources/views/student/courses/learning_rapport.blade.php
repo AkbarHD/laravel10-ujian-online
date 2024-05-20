@@ -188,7 +188,7 @@
                     @else
                         <p
                             class="p-[16px_20px] rounded-[10px] bg-[#FD445E] font-bold text-lg text-white outline-[#FD445E] outline-dashed outline-[3px] outline-offset-[7px] mr-[10px]">
-                            Not Passed</p>
+                            Tidak lulus</p>
                     @endif
                 </div>
             </div>

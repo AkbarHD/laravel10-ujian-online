@@ -76,12 +76,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/learning/{course}/{question}', [StudentAnswerController::class, 'store'])->middleware('role:student')->name('learning.course.answer.store');
 
         // hasil nilai murid after learning
-        Route::get('/learning/finished/{course}', [LearningController::class, 'learning_finished'])->middleware('role:student')->name('learning.finished.course');
-         
+        Route::get('/finished/learning/{course}', [LearningController::class, 'learning_finished'])->middleware('role:student')->name('learning.finished.course');
+
         // ----------------------------------
         Route::get('/rapport/learning/{course}', [LearningController::class, 'learning_rapport'])
-        ->middleware('role:student')
-        ->name('learning.rapport.course');
+            ->middleware('role:student')
+            ->name('learning.rapport.course');
         // -----------------------------------
 
         // ----------------fiks bug ----------------------

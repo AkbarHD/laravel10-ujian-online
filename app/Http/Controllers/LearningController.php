@@ -44,6 +44,8 @@ class LearningController extends Controller
     }
 
 
+
+
     public function learning(Course $course, $question)
     {
         $user = Auth::user(); // dptkan id yang login
@@ -59,11 +61,20 @@ class LearningController extends Controller
         ]);
     }
 
-    public function learning_rapport(Course $course){
+
+    public function learning_finished(Course $course)
+    {
+        return view('student.courses.learning_finished', [
+            'course' => $course
+        ]);
+    }
+
+    public function learning_rapport(Course $course)
+    {
 
         $userId = Auth::id();
-        $studentAnswers = StudentAnswer::with('question')->whereHas('question', function ($query) use  ($course) {
-            $query->where('course_id', $course->id);
+        $studentAnswers = StudentAnswer::with('question')->whereHas('question', function ($query) use ($course) {
+            $query->where('course_id', $course->id); // tampilkan question berdasarkan id
         })->where('user_id', $userId)->get();
 
         $totalQuestion = CourseQuestion::where('course_id', $course->id)->count();
@@ -78,7 +89,4 @@ class LearningController extends Controller
             'correctAnswer' => $correctAnswer
         ]);
     }
-
-
-  
 }

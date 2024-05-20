@@ -38,14 +38,14 @@ class StudentAnswerController extends Controller
         $question_detail = CourseQuestion::where('id', $question)->first();
 
         $validated = $request->validate([
-            'answer_id' => 'required|exists:course_answers,id' 
+            'answer_id' => 'required|exists:course_answers,id'
         ]);
 
         DB::beginTransaction();
-        try{
+        try {
             $selected_answer = CourseAnswer::find($validated['answer_id']); // cari courseAnswer dgn id yang dikirim dari radio button
 
-            if($selected_answer->course_question_id != $question){ // jika jawaban yang d
+            if ($selected_answer->course_question_id != $question) { // jika jawaban yang d
                 $error = ValidationException::withMessages([
                     'system_error' => ['System_error!' . ['Jawaban tidak tersedia pada pertanyaan']],
                 ]);
@@ -55,7 +55,7 @@ class StudentAnswerController extends Controller
 
             $studentAnswer = StudentAnswer::where('user_id', Auth::id())->where('course_question_id', $question)->first();
 
-            if($studentAnswer){
+            if ($studentAnswer) {
                 $error = ValidationException::withMessages([
                     'system_error' => ['System_error!' . ['Kamu telah menjawab pertanyaan ini sebelumnya ']],
                 ]);
@@ -72,8 +72,7 @@ class StudentAnswerController extends Controller
             ]);
 
             DB::commit();
-
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
             $error = ValidationException::withMessages([
                 'system_error' => ['System_error!' . $e->getMessage()],
@@ -83,10 +82,10 @@ class StudentAnswerController extends Controller
         }
 
         // jika blm selesai makan ke pertanyaan selanjutnya "DESC"
-        $nextQuestion = CourseQuestion::where('course_id', $course->id)->where('id', '>' , $question)->orderBy('id', 'DESC')->first(); 
-        if($nextQuestion){
+        $nextQuestion = CourseQuestion::where('course_id', $course->id)->where('id', '>', $question)->orderBy('id', 'DESC')->first();
+        if ($nextQuestion) {
             return redirect()->route('dashboard.learning.course', ['course' => $course->id, 'question' => $nextQuestion->id]);
-        }else{
+        } else {
             // jika sudah selesai
             return redirect()->route('dashboard.learning.finished.course', $course->id);
         }
