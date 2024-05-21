@@ -14,9 +14,15 @@ class CourseStudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Course $course)
     {
-        //
+
+        // besok buat bikin list student di dashboard
+
+        return view('admin.students.index', [
+            'course' =>  $course,
+            'students' => $course->Students()->orderBy('id', 'DESC')->get(),
+        ]);
     }
 
     /**

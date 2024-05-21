@@ -43,6 +43,7 @@
                 {{ $question->question }}
             </h1>
             <div class="flex flex-col gap-[30px] max-w-[750px] w-full">
+                {{-- ambil jawaban dari pertanyaan terakit karena pertanyaan itu hasMany, jd bisa mngambil bnyk jwbn --}}
                 @foreach ($question->Answers as $answer)
                     <label for="{{ $answer->id }}"
                         class="group flex items-center justify-between rounded-full w-full border border-[#EEEEEE] p-[18px_20px] gap-[14px] transition-all duration-300 has-[:checked]:border-2 has-[:checked]:border-[#0A090B]">

@@ -26,7 +26,7 @@ class CourseQuestion extends Model
     // dan di pertanyaan ini punya 4 jawaban yang akan di pilih salah satu jadi hasMany ke table Answer
     public function Answers(): HasMany
     {
-        //  pertanyaan ini sekalian di tampilkan jawaban dari user 1 - 4
+        //  pertanyaan ini sekalian di tampilkan answer yang nnti di pilih oleh user
         return $this->hasMany(CourseAnswer::class, 'course_question_id', 'id');
     }
 }

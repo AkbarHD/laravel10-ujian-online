@@ -16,7 +16,7 @@ class LearningController extends Controller
         $user = Auth::user(); // ini tu sama aja mengabil data yg sdh mengakses ini
         $my_course = $user->Courses()->with('Category')->orderBy('id', 'DESC')->get();
 
-        foreach ($my_course as $course) {
+        foreach ($my_course as $course) { // pecah yang tadiny ada 2 coruse jadi satu
             $totalQuestionsCount = $course->Questions()->count(); // menhitung question dari masing" kelas
             $answerQuestionCount = StudentAnswer::where('user_id', $user->id)
                 ->whereHas('question', function ($query) use ($course) {
@@ -53,7 +53,7 @@ class LearningController extends Controller
         if (!$isEnrolled) { // jika user tersebut tdk memiliki akses kelas trsbt
             return abort(404);
         }
-        // cari pertanyaan berdasrkan id kelas yg di lempar dan id yang di lempar
+        // cari pertanyaan berdasrkan id kelas yg di lempar 
         $currentQuestion = CourseQuestion::where('course_id', $course->id)->where('id', $question)->firstOrFail();
         return view('student.courses.learning', [
             'course' => $course,
