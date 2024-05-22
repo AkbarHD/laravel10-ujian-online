@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseStudent;
+use App\Models\StudentAnswer;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
@@ -16,12 +17,33 @@ class CourseStudentController extends Controller
      */
     public function index(Course $course)
     {
+        $tudents = $course->Students()->orderBy('id', 'DESC')->get(); // ambil semua student dari kelas tertentu
+        $question = $course->Questions()->orderBy('id', 'DESC')->get(); // ambil semua qeustion
+        $totalQuestion = $question->count(); // lalu hitung dan dptkan semua question 
+
+        foreach ($tudents as $student) { //pecah semua student
+            $studentAnswer = StudentAnswer::whereHas('question', function ($query) use ($course) {
+                $query->where('course_id', $course->id);
+            })->where('user_id', $student->id)->get();
+
+            $answerCount = $studentAnswer->count();
+            $correctAnswerCount = $studentAnswer->where('answer', 'correct')->count();
+
+            if ($answerCount == 0) {
+                $student->status = "Belum Mengerjakan";
+            } elseif ($correctAnswerCount < $totalQuestion) {
+                $student->status = "Tidak Lulus";
+            } elseif ($correctAnswerCount ==  $totalQuestion) {
+                $student->status = "Lulus";
+            }
+        }
 
         // besok buat bikin list student di dashboard
 
         return view('admin.students.index', [
             'course' =>  $course,
-            'students' => $course->Students()->orderBy('id', 'DESC')->get(),
+            'question' => $question,
+            'students' => $tudents,
         ]);
     }
 
