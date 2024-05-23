@@ -17,12 +17,13 @@ class CourseStudentController extends Controller
      */
     public function index(Course $course)
     {
+        // display at admin
         $tudents = $course->Students()->orderBy('id', 'DESC')->get(); // ambil semua student dari kelas tertentu
         $question = $course->Questions()->orderBy('id', 'DESC')->get(); // ambil semua qeustion
         $totalQuestion = $question->count(); // lalu hitung dan dptkan semua question 
 
         foreach ($tudents as $student) { //pecah semua student
-            $studentAnswer = StudentAnswer::whereHas('question', function ($query) use ($course) {
+            $studentAnswer = StudentAnswer::whereHas('question', function ($query) use ($course) { // cari jwbn student
                 $query->where('course_id', $course->id);
             })->where('user_id', $student->id)->get();
 

@@ -151,7 +151,7 @@ class CourseController extends Controller
             return redirect()->route('dashboard.courses.index');
         } catch (\Exception $e) {
             DB::rollBack();
-            $error = ValidationException::withMessages([ // kembalikan ke halam sebelumnya dan mengirimkan pesan error
+            $error = ValidationException::withMessages([
                 'system_error' => ['System_error!!' . $e->getMessage()],
             ]);
 
