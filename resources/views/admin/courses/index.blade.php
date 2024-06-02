@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Course</title>
     <link href="{{ asset('css/output.css') }}" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
@@ -228,10 +229,6 @@
                                     <a href="{{ route('dashboard.courses.show', $course) }}"
                                         class="flex items-center justify-between font-bold text-sm w-full">
                                         Manage
-                                    </a>
-                                    <a href="course-students.html"
-                                        class="flex items-center justify-between font-bold text-sm w-full">
-                                        Students
                                     </a>
                                     {{-- pake $course->id atau $course juga sama --}}
                                     <a href="{{ route('dashboard.courses.edit', $course->id) }}"

@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Student</title>
     <link href="{{ asset('css/output.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
@@ -15,9 +16,10 @@
         <div id="sidebar"
             class="w-[270px] flex flex-col shrink-0 min-h-screen justify-between p-[30px] border-r border-[#EEEEEE] bg-[#FBFBFB]">
             <div class="w-full flex flex-col gap-[30px]">
-                <a href="index.html" class="flex items-center justify-center">
+                {{-- <a href="index.html" class="flex items-center justify-center">
                     <img src="{{ asset('images/logo/logo.svg') }}" alt="logo">
-                </a>
+                </a> --}}
+                <p class="font-extrabold text-[30px] leading-[45px]">AkbarHD</p>
                 <ul class="flex flex-col gap-3">
                     <li>
                         <h3 class="font-bold text-xs text-[#A5ABB2]">DAILY USE</h3>

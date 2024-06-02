@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport Student</title>
     <link href="{{ asset('css/output.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
@@ -103,13 +104,16 @@
                         </a>
                     </li>
                     <li>
-                        <a href="signin.html"
-                            class="p-[10px_16px] flex items-center gap-[14px] rounded-full h-11 transition-all duration-300 hover:bg-[#2B82FE]">
-                            <div>
-                                <img src="{{ asset('images/icons/security-safe.svg') }}" alt="icon">
-                            </div>
-                            <p class="font-semibold transition-all duration-300 hover:text-white">Logout</p>
-                        </a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="w-full p-[10px_16px] flex items-center gap-[14px] rounded-full h-11 transition-all duration-300 hover:bg-[#2B82FE]">
+                                <div>
+                                    <img src="{{ asset('images/icons/security-safe.svg') }}" alt="icon">
+                                </div>
+                                <p class="font-semibold transition-all duration-300 hover:text-white">Logout</p>
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -150,7 +154,8 @@
             </div>
             <div class="flex flex-col gap-10 px-5 mt-5">
                 <div class="breadcrumb flex items-center gap-[30px]">
-                    <a href="#" class="text-[#7F8190] last:text-[#0A090B] last:font-semibold">Home</a>
+                    <a href="{{ route('dashboard') }}"
+                        class="text-[#7F8190] last:text-[#0A090B] last:font-semibold">Home</a>
                     <span class="text-[#7F8190] last:text-[#0A090B]">/</span>
                     <a href="{{ route('dashboard.learning.index') }}"
                         class="text-[#7F8190] last:text-[#0A090B] last:font-semibold">My Courses</a>
