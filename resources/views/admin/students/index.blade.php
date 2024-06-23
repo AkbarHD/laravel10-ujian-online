@@ -248,7 +248,6 @@
             </div>
         </div>
     </section>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const menuButton = document.getElementById('more-button');

@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
         // post form proses simpan where id
         Route::post('/course/question/save/{course}', [CourseQuestionController::class, 'store'])->middleware('role:teacher')->name('course.create.question.store');
 
-        //  
+        //
         Route::resource('course_questions', CourseQuestionController::class)->middleware('role:teacher');
 
         // utk melihat studentnya siapa aja dari kelas tertentu

@@ -53,7 +53,7 @@ class LearningController extends Controller
         if (!$isEnrolled) { // jika user tersebut tdk memiliki akses kelas trsbt
             return abort(404);
         }
-        // cari pertanyaan berdasrkan id kelas yg di lempar 
+        // cari pertanyaan berdasrkan id kelas yg di lempar
         $currentQuestion = CourseQuestion::where('course_id', $course->id)->where('id', $question)->firstOrFail();
         return view('student.courses.learning', [
             'course' => $course,

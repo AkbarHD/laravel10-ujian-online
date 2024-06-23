@@ -20,7 +20,7 @@ class CourseStudentController extends Controller
         // display at admin
         $tudents = $course->Students()->orderBy('id', 'DESC')->get(); // ambil semua student dari kelas tertentu
         $question = $course->Questions()->orderBy('id', 'DESC')->get(); // ambil semua qeustion
-        $totalQuestion = $question->count(); // lalu hitung dan dptkan semua question 
+        $totalQuestion = $question->count(); // lalu hitung dan dptkan semua question
 
         foreach ($tudents as $student) { //pecah semua student
             $studentAnswer = StudentAnswer::whereHas('question', function ($query) use ($course) { // cari jwbn student
@@ -34,7 +34,7 @@ class CourseStudentController extends Controller
                 $student->status = "Belum Mengerjakan";
             } elseif ($correctAnswerCount < $totalQuestion) {
                 $student->status = "Tidak Lulus";
-            } elseif ($correctAnswerCount ==  $totalQuestion) {
+            } elseif ($correctAnswerCount == $totalQuestion) {
                 $student->status = "Lulus";
             }
         }
@@ -42,7 +42,7 @@ class CourseStudentController extends Controller
         // besok buat bikin list student di dashboard
 
         return view('admin.students.index', [
-            'course' =>  $course,
+            'course' => $course,
             'question' => $question,
             'students' => $tudents,
         ]);
@@ -78,7 +78,7 @@ class CourseStudentController extends Controller
         }
 
         // penjagaan jika user sudah masuk kelas dan tidak bisa masuk kelas lagi
-        $studentExist = $course->Students()->where('user_id', $user->id)->exists(); // dgn relasi course bisa masuk ke table 
+        $studentExist = $course->Students()->where('user_id', $user->id)->exists(); // dgn relasi course bisa masuk ke table
         if ($studentExist) {
             $error = ValidationException::withMessages([
                 'system_error' => ['Student sudah memiliki hakm akses kelas'],
