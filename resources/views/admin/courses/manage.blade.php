@@ -145,7 +145,7 @@
                     <div class="h-[46px] w-[1px] flex shrink-0 border border-[#EEEEEE]"></div>
                     <div class="flex gap-3 items-center">
                         <div class="flex flex-col text-right">
-                            <p class="text-sm text-[#7F8190]">Howdy</p>
+                            <p class="text-sm text-[#7F8190]">Howdyy</p>
                             <p class="font-semibold">{{ Auth::user()->name }}</p>
                         </div>
                         <div class="w-[46px] h-[46px]">

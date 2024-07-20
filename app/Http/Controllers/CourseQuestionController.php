@@ -29,7 +29,7 @@ class CourseQuestionController extends Controller
     //  bisa juga string $id
     public function create(Course $course) // dgn seperti ini dia sdh otomatis mendaptkan course_id
     {
-        // create berdasarkan id, jd tempat createnya sesaui dgn id course 
+        // create berdasarkan id, jd tempat createnya sesaui dgn id course
         // dd($course);
         return view('admin.questions.create', [
             'course' => $course,
@@ -137,7 +137,7 @@ class CourseQuestionController extends Controller
             // edit ke table course_answers
             foreach ($request->answers as $index => $answerText) {
                 $isCorrect = ($request->correct_answer == $index); // jwban yg benar
-                $courseQuestion->Answers()->create([ // kalo update semuanya td ke ganti 
+                $courseQuestion->Answers()->create([ // kalo update semuanya td ke ganti
                     'answer' => $answerText,
                     'is_correct' => $isCorrect,
                 ]);

@@ -144,7 +144,7 @@
                     <div class="flex gap-3 items-center">
                         <div class="flex flex-col text-right">
                             <p class="text-sm text-[#7F8190]">Howdy</p>
-                            <p class="font-semibold">Fany Alqo</p>
+                            <p class="font-semibold">{{ auth()->user()->name }}</p>
                         </div>
                         <div class="w-[46px] h-[46px]">
                             <img src="{{ asset('images/photos/default-photo.svg') }}" alt="photo">
@@ -171,22 +171,22 @@
                             class="w-full h-full object-contain" alt="icon">
                         <p
                             class="p-[8px_16px] rounded-full bg-[#FFF2E6] font-bold text-sm text-[#F6770B] absolute bottom-0 transform -translate-x-1/2 left-1/2 text-nowrap">
-                            Product Design</p>
+                            {{ $course->Category->name }}</p>
                     </div>
                     <div class="flex flex-col gap-5">
-                        <h1 class="font-extrabold text-[30px] leading-[45px]">Digital Marketing 101</h1>
+                        <h1 class="font-extrabold text-[30px] leading-[45px]">{{ $course->name }}</h1>
                         <div class="flex items-center gap-5">
                             <div class="flex gap-[10px] items-center">
                                 <div class="w-6 h-6 flex shrink-0">
                                     <img src="{{ asset('images/icons/calendar-add.svg') }}" alt="icon">
                                 </div>
-                                <p class="font-semibold">22 August 2024</p>
+                                <p class="font-semibold">{{ $course->created_at->format('F j, Y') }}</p>
                             </div>
                             <div class="flex gap-[10px] items-center">
                                 <div class="w-6 h-6 flex shrink-0">
                                     <img src="{{ asset('images/icons/profile-2user-outline.svg') }}" alt="icon">
                                 </div>
-                                <p class="font-semibold">489,509 students</p>
+                                <p class="font-semibold">{{ count($students) }} students</p>
                             </div>
                         </div>
                     </div>

@@ -56,6 +56,7 @@ class CourseStudentController extends Controller
         // dd($course);
         return view('admin.students.add_student', [
             'course' => $course,
+            'students' => $course->Students()->orderBy('id', 'DESC')->get(), // many to many
         ]);
     }
 
